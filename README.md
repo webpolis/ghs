@@ -1,8 +1,8 @@
-# GitHub Stars Organizer
+# StarSearch: Semantic Search for GitHub Stars
 
-A Python CLI tool that organizes your GitHub starred repositories using semantic embeddings and vector search.
+A command-line tool to semantically search your starred GitHub repositories.
 
-**WHY?** If you are like me, who goes **starring** repositories as a way to bookmark them, but you later find it hard to recall a specific tool or library due to the archaic search feature in **GitHub**, which does not do semantic similarity search, then this tool is for you.
+**¿WHY?** If you are like me, who goes **starring** repositories as a way to bookmark them, but you later find it hard to recall a specific tool or library due to the archaic search feature in **GitHub**, which does not do semantic similarity search, then this tool is for you.
 
 ## Features
 
