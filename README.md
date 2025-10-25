@@ -8,11 +8,14 @@ A Python CLI tool that organizes your GitHub starred repositories using semantic
 
 - Unified command-line interface with intuitive subcommands
 - Fetches all starred repositories from your GitHub profile
+- **Parallel processing** with 5 concurrent workers for fast README fetching
+- **Intelligent rate limit handling** - automatically detects and waits for GitHub API limits to reset
 - Extracts and parses README files (supports .md, .txt, and plain README)
 - Generates embeddings using a lightweight sentence-transformer model (all-MiniLM-L6-v2)
 - Stores data efficiently using sqlite-vec for fast vector similarity search
 - Smart refresh command to sync added/removed stars
 - Semantic search to find repositories by meaning, not just keywords
+- Real-time progress feedback showing currently processing repositories
 
 ## Setup
 
@@ -49,11 +52,14 @@ python stars.py fetch
 ```
 
 This will:
-1. Fetch all your starred repositories from GitHub
-2. Download and parse their READMEs (tries .md, .txt, and plain README)
-3. Generate embeddings using the all-MiniLM-L6-v2 model (384-dimensional)
-4. Store everything in a local SQLite database with vector search capabilities
-5. Skip repositories that are already stored
+1. Check your GitHub API rate limit status
+2. Fetch all your starred repositories from GitHub
+3. Download and parse their READMEs in parallel (5 concurrent workers)
+4. Generate embeddings using the all-MiniLM-L6-v2 model (384-dimensional)
+5. Store everything in a local SQLite database with vector search capabilities
+6. Skip repositories that are already stored
+
+**Rate Limiting:** The tool automatically monitors GitHub API rate limits and will pause with a clear message if limits are reached, then resume when they reset.
 
 ### Search - Semantic Search
 
@@ -121,11 +127,13 @@ python stars.py stats                   # Show statistics
 
 ## How It Works
 
-1. **GitHub API**: Uses PyGithub to fetch your starred repositories
-2. **README Extraction**: Tries multiple README file variants and extracts content
-3. **Embeddings**: Uses sentence-transformers (all-MiniLM-L6-v2) to generate 384-dim vectors
-4. **Vector Search**: Stores embeddings in sqlite-vec for fast similarity search using cosine distance
-5. **Smart Sync**: Refresh command intelligently adds/removes repositories based on current stars
+1. **GitHub API**: Uses PyGithub to fetch your starred repositories with intelligent rate limit handling
+2. **Parallel README Fetching**: Downloads READMEs using 5 concurrent workers with shared rate limit detection
+3. **README Extraction**: Uses GitHub's dedicated README API endpoint for efficient fetching
+4. **Embeddings**: Uses sentence-transformers (all-MiniLM-L6-v2) to generate 384-dim vectors
+5. **Vector Search**: Stores embeddings in sqlite-vec for fast similarity search using cosine distance
+6. **Smart Sync**: Refresh command intelligently adds/removes repositories based on current stars
+7. **Rate Limit Protection**: Automatically detects rate limits, displays clear wait times, and resumes when ready
 
 ## Database Schema
 
