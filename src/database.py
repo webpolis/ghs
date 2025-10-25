@@ -101,8 +101,8 @@ class StarDatabase:
             FROM vec_repositories v
             INNER JOIN repositories r ON v.repo_id = r.repo_id
             WHERE embedding MATCH ?
+            AND k = ?
             ORDER BY distance
-            LIMIT ?
         """, (serialize_float32(query_embedding), limit))
 
         return cursor.fetchall()
