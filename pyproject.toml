@@ -43,9 +43,9 @@ cpu = ["torch>=2.0.0"]
 ghs = "src.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/yourusername/github-stars-organizer"
-Repository = "https://github.com/yourusername/github-stars-organizer"
-Issues = "https://github.com/yourusername/github-stars-organizer/issues"
+Homepage = "https://github.com/webpolis/ghs"
+Repository = "https://github.com/webpolis/ghs"
+Issues = "https://github.com/webpolis/ghs/issues"
 
 [tool.setuptools]
 packages = ["src"]
