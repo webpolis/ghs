@@ -1,0 +1,10 @@
+PyGithub>=2.1.1
+requests>=2.31.0
+pysqlite3-binary>=0.5.0
+sqlite-vec>=0.1.1
+# Install CPU-only PyTorch to avoid heavy CUDA dependencies
+# For CPU-only: pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
+torch>=2.0.0
+sentence-transformers>=2.2.2
+python-dotenv>=1.0.0
+tqdm>=4.66.0
