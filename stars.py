@@ -84,6 +84,14 @@ def cmd_fetch(args):
     readme_fetcher = ReadmeFetcher(github_token)
     embedding_generator = EmbeddingGenerator()
 
+    # Display rate limit status
+    rate_limit = github_client.get_rate_limit_status()
+    if rate_limit:
+        print(f"\nGitHub API Rate Limit:")
+        print(f"  Remaining: {rate_limit['remaining']}/{rate_limit['limit']}")
+        if rate_limit['reset_in_seconds'] > 0:
+            print(f"  Resets in: {rate_limit['reset_in_seconds']}s ({rate_limit['reset_in_seconds']//60}min)")
+
     print(f"\nFetching starred repositories for user: {github_client.get_username()}")
     starred_repos = github_client.get_starred_repositories()
     print(f"Found {len(starred_repos)} starred repositories")
@@ -214,6 +222,14 @@ def cmd_refresh(args):
     github_client = GitHubStarsFetcher(github_token)
     readme_fetcher = ReadmeFetcher(github_token)
     embedding_generator = EmbeddingGenerator()
+
+    # Display rate limit status
+    rate_limit = github_client.get_rate_limit_status()
+    if rate_limit:
+        print(f"\nGitHub API Rate Limit:")
+        print(f"  Remaining: {rate_limit['remaining']}/{rate_limit['limit']}")
+        if rate_limit['reset_in_seconds'] > 0:
+            print(f"  Resets in: {rate_limit['reset_in_seconds']}s ({rate_limit['reset_in_seconds']//60}min)")
 
     print(f"\nFetching current starred repositories for user: {github_client.get_username()}")
     current_starred = github_client.get_starred_repositories()
