@@ -13,3 +13,9 @@ ENV/
 *.log
 embeddings/
 models/
+
+# PyPI build artifacts
+dist/
+build/
+*.egg-info/
+.eggs/

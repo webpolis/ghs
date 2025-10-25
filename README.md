@@ -1,4 +1,4 @@
-# StarSearch: Semantic Search for GitHub Stars
+# GHS: Semantic Search for GitHub Stars
 
 A command-line tool to semantically search your starred GitHub repositories.
 
@@ -17,18 +17,37 @@ A command-line tool to semantically search your starred GitHub repositories.
 - Semantic search to find repositories by meaning, not just keywords
 - Real-time progress feedback showing currently processing repositories
 
-## Setup
+## Installation
 
-1. Install dependencies:
+### Option 1: Install from PyPI (Recommended)
+
 ```bash
-# For CPU-only installation (faster, no CUDA overhead):
-pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
+# Install the package
+pip install github-stars-search
 
-# Or for GPU support (if you have CUDA):
-pip install -r requirements.txt
+# For CPU-only PyTorch (faster, no CUDA overhead):
+pip install github-stars-search --extra-index-url https://download.pytorch.org/whl/cpu
 ```
 
-2. Create a GitHub Personal Access Token:
+After installation, the tool will be available as the `ghs` command.
+
+### Option 2: Install from Source
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/github-stars-organizer.git
+cd github-stars-organizer
+
+# Install in development mode
+pip install -e .
+
+# For CPU-only PyTorch:
+pip install -e . --extra-index-url https://download.pytorch.org/whl/cpu
+```
+
+## Setup
+
+1. Create a GitHub Personal Access Token:
    - Go to https://github.com/settings/tokens
    - Create a new token with `public_repo` scope
    - Copy the token
@@ -48,7 +67,7 @@ The tool provides a unified CLI with four main commands:
 Fetch and index all your starred repositories:
 
 ```bash
-python stars.py fetch
+ghs fetch
 ```
 
 This will:
@@ -66,15 +85,15 @@ This will:
 Search your stars using natural language queries:
 
 ```bash
-python stars.py search "your search query"
+ghs search "your search query"
 ```
 
 Examples:
 ```bash
-python stars.py search "machine learning frameworks"
-python stars.py search "web scraping tools"
-python stars.py search "rust web server"
-python stars.py search "react component libraries" --limit 5
+ghs search "machine learning frameworks"
+ghs search "web scraping tools"
+ghs search "rust web server"
+ghs search "react component libraries" --limit 5
 ```
 
 Options:
@@ -85,7 +104,7 @@ Options:
 Synchronize your database with your current GitHub stars (adds new stars, removes unstarred repositories):
 
 ```bash
-python stars.py refresh
+ghs refresh
 ```
 
 This command:
@@ -100,7 +119,7 @@ This command:
 Show database statistics:
 
 ```bash
-python stars.py stats
+ghs stats
 ```
 
 Displays:
@@ -112,18 +131,12 @@ Displays:
 ## Command Quick Reference
 
 ```bash
-python stars.py fetch                   # Initial fetch and index
-python stars.py search "query"          # Search repositories
-python stars.py search "query" --limit 5  # Limit results
-python stars.py refresh                 # Sync added/removed stars
-python stars.py stats                   # Show statistics
-
-# Or use the convenience wrapper (no 'python' needed):
-./stars fetch
-./stars search "machine learning"
+ghs fetch                      # Initial fetch and index
+ghs search "query"             # Search repositories
+ghs search "query" --limit 5   # Limit results
+ghs refresh                    # Sync added/removed stars
+ghs stats                      # Show statistics
 ```
-
-> **Note**: The old `main.py`, `search.py`, and `stats.py` scripts are still available but deprecated. Use `stars.py` instead for the unified experience.
 
 ## How It Works
 
