@@ -1,17 +1,25 @@
+import os
+import threading
+from typing import List, Optional, Tuple
+
 try:
     import pysqlite3 as sqlite3
 except ImportError:
     import sqlite3
 import sqlite_vec
 from sqlite_vec import serialize_float32
-from typing import List, Optional, Tuple
-import threading
 
 
 class StarDatabase:
-    def __init__(self, db_path: str = "stars.db"):
-        self.db_path = db_path
-        self.conn = sqlite3.connect(db_path, check_same_thread=False)
+    def __init__(self, db_path: Optional[str] = None):
+        if db_path is None:
+            db_dir = os.path.expanduser("~/.config/ghs")
+            os.makedirs(db_dir, exist_ok=True)
+            self.db_path = os.path.join(db_dir, "stars.db")
+        else:
+            self.db_path = db_path
+
+        self.conn = sqlite3.connect(self.db_path, check_same_thread=False)
         self.conn.enable_load_extension(True)
         sqlite_vec.load(self.conn)
         self.conn.enable_load_extension(False)

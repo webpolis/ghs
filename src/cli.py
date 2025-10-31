@@ -176,7 +176,7 @@ def cmd_fetch(args):
     github_client.close()
     db.close()
 
-    print(f"\nDatabase saved to: stars.db")
+    print(f"\nDatabase saved to: {db.db_path}")
 
 
 def cmd_search(args):
@@ -312,11 +312,11 @@ def cmd_refresh(args):
 
 
 def cmd_stats(args):
-    if not os.path.exists("stars.db"):
-        print("Database not found. Run 'stars fetch' first to create it.")
-        sys.exit(1)
-
     db = StarDatabase()
+    if not os.path.exists(db.db_path):
+        print("Database not found. Run 'stars fetch' first to create it.")
+        db.close()
+        return
 
     stats = db.get_statistics()
 
